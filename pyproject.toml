@@ -1,0 +1,36 @@
+[project]
+name = "transcripy"
+version = "0.1.0"
+description = "Local multi-speaker audio transcription"
+authors = [{name = "Charles Martin"}]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "openai-whisper",
+    "pyannote.audio",
+    "spleeter",
+    "tensorflow>=2.20,<2.21",
+    "tqdm",
+    "pydub",
+    "plotly",
+    "mutagen",
+    "pycaption",
+    "colour",
+    "colorama",
+    "numpy",
+    "scipy",
+    "console-menu",
+]
+
+[project.scripts]
+transcripy = "transcripy.cli:main"
+
+[tool.poetry]
+packages = [{include = "transcripy"}]
+
+[tool.poetry.dependencies]
+openai-whisper = {git = "https://github.com/openai/whisper.git"}
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
