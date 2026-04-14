@@ -14,7 +14,7 @@ DiarizationTrack = Tuple[DiarizationTurn, Any, str]
 
 
 class MultiDetector(MultiFileHandler):
-    def __init__(self, data_path: str, verbose: bool = False, model: str = "pyannote/speaker-diarization") -> None:
+    def __init__(self, data_path: str, verbose: bool = False, model: str = "pyannote/speaker-diarization-3.1") -> None:
         super().__init__(data_path, verbose, "raw_audio_voices",
                          "diarization", "rttm", ["wav"])
         self.pipeline = Pipeline.from_pretrained(model)
@@ -22,9 +22,9 @@ class MultiDetector(MultiFileHandler):
     def handler(self, input_file: str, output_file: str, file_idx: int) -> None:
         uri, audio = os.path.split(input_file)
         file_identifier = {'uri': audio.replace(" ", "_"), 'audio': input_file}
-        diarization = self.pipeline(file_identifier)
-        # with open(output_file, 'w') as f:
-        #     json.dump(result, f, indent=4)
+        result = self.pipeline(file_identifier)
+        # pyannote.audio 4.x returns DiarizeOutput; earlier versions return Annotation directly
+        diarization = result.speaker_diarization if hasattr(result, 'speaker_diarization') else result
         with open(output_file, "w") as rttm:
             diarization.write_rttm(rttm)
         _id, diarization = read_rttm(output_file)

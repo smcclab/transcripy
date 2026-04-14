@@ -1,4 +1,16 @@
-data/
+# Audio files in data/
+data/**/*.wav
+data/**/*.mp3
+data/**/*.mp4
+data/**/*.m4a
+data/**/*.flac
+data/**/*.ogg
+data/**/*.aac
+data/**/*.wma
+
+# Keep folder structure
+!data/**/.gitkeep
+
 .mypy_cache/
 __pycache__
 pretrained_models/

@@ -7,7 +7,7 @@ from consolemenu.items import FunctionItem
 
 def audio_extract_voice(data_path: str, verbose: bool = False, model: Optional[str] = None, vocals_only: bool = True) -> None:
     if model is None:
-        model = "spleeter:2stems"
+        model = "htdemucs"
     from .audioPreprocessing import MultiVoiceExtractor
     MultiVoiceExtractor(data_path, verbose=verbose,
                         model=model, vocals_only=vocals_only).run()

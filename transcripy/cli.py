@@ -33,7 +33,7 @@ def main():
                         help="Transcribe files to console")
 
     parser.add_argument("--model",  type=str, default=None,
-                        help="Model for --audio-to-text (default: 'medium') and --audio-to-voices (default: 'pyannote/speaker-diarization') and --audio-extract-voice (default: 'spleeter:2stems')")
+                        help="Model for --audio-to-text (default: 'medium') and --audio-to-voices (default: 'pyannote/speaker-diarization') and --audio-extract-voice (default: 'htdemucs')")
     parser.add_argument("--language",  type=str, default=None,
                         help="Force language for --audio-to-text")
     parser.add_argument("--pre",  type=float, default=0,
@@ -57,7 +57,7 @@ def main():
     verbose = args.verbose
     if args.audio_extract_voice:
         if model is None:
-            model = "spleeter:2stems"
+            model = "htdemucs"
         from .audioPreprocessing import MultiVoiceExtractor
         MultiVoiceExtractor(data_path, verbose=verbose,
                             model=model, vocals_only=not args.extract_all).run()
@@ -69,7 +69,7 @@ def main():
                          forceLanguage=args.language, english_only=args.language == "english").run()
     if args.audio_to_voices:
         if model is None:
-            model = "pyannote/speaker-diarization"
+            model = "pyannote/speaker-diarization-3.1"
         from .audio2voices import MultiDetector
         MultiDetector(data_path, verbose=verbose, model=model).run()
 

@@ -32,11 +32,14 @@ poetry install
 Pyannote downloads its speaker diarization models from HuggingFace and requires a free account with model access accepted before first use.
 
 1. Create a free account at [huggingface.co](https://huggingface.co)
-2. Accept the model terms at [pyannote/speaker-diarization](https://huggingface.co/pyannote/speaker-diarization) and [pyannote/segmentation](https://huggingface.co/pyannote/segmentation)
+2. Accept the model terms at each of these (all are required):
+   - [pyannote/speaker-diarization-3.1](https://huggingface.co/pyannote/speaker-diarization-3.1)
+   - [pyannote/segmentation-3.0](https://huggingface.co/pyannote/segmentation-3.0)
+   - [pyannote/speaker-diarization-community-1](https://huggingface.co/pyannote/speaker-diarization-community-1)
 3. Log in via the CLI:
 
 ```shell
-poetry run huggingface-cli login
+poetry run hf auth login
 ```
 
 ---
