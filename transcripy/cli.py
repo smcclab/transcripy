@@ -1,6 +1,35 @@
 import argparse
 import os
 
+
+def download_models(whisper_model: str = "medium", pyannote_model: str = "pyannote/speaker-diarization-3.1", demucs_model: str = "htdemucs") -> None:
+    print(f"Downloading Whisper model '{whisper_model}'...")
+    import whisper
+    whisper.load_model(whisper_model)
+    print("  done.")
+
+    print(f"Downloading Pyannote pipeline '{pyannote_model}'...")
+    from pyannote.audio import Pipeline
+    try:
+        Pipeline.from_pretrained(pyannote_model)
+        print("  done.")
+    except Exception as e:
+        print(f"  FAILED: {e}")
+        print("  Ensure you have accepted the model terms on huggingface.co and run: hf auth login")
+
+    print(f"Downloading Demucs model '{demucs_model}'...")
+    import demucs.pretrained
+    demucs.pretrained.get_model(demucs_model)
+    print("  done.")
+
+    print("Downloading NLTK punkt_tab data...")
+    import nltk
+    nltk.download("punkt_tab", quiet=True)
+    print("  done.")
+
+    print("All models downloaded.")
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--audio-extract-voice", default=False, action='store_true',
@@ -50,11 +79,19 @@ def main():
                         help="whether to print out the progress and debug messages")
     parser.add_argument("--extract-all", default=False, action='store_true',
                         help="Extract all voices from audio (--audio-extract-voice)")
+    parser.add_argument("--download-models", default=False, action='store_true',
+                        help="Download all required models (Whisper, Pyannote, Demucs, NLTK)")
 
     args = parser.parse_args()
     data_path = args.data_path
     model = None
     verbose = args.verbose
+
+    if args.download_models:
+        whisper_model = args.model if args.model else "medium"
+        download_models(whisper_model=whisper_model)
+        return
+
     if args.audio_extract_voice:
         if model is None:
             model = "htdemucs"
