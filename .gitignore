@@ -7,6 +7,7 @@ data/**/*.flac
 data/**/*.ogg
 data/**/*.aac
 data/**/*.wma
+data
 
 # Keep folder structure
 !data/**/.gitkeep
