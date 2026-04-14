@@ -82,14 +82,13 @@ Run each step in order. All commands use `poetry run transcripy` (or activate th
 # Skip this if your audio is already clean speech
 poetry run transcripy --audio-extract-voice
 
-# Transcribe audio to text using Whisper
-poetry run transcripy --audio-to-text --model medium --language english
+# Run the full pipeline: transcribe, diarise, and produce transcripts in one step
+poetry run transcripy --process --model medium --language english
 
-# Detect and label individual speakers
-poetry run transcripy --audio-to-voices
-
-# Combine transcription and speaker labels into output transcripts
-poetry run transcripy --transcribe
+# Or run each step individually:
+# poetry run transcripy --audio-to-text --model medium --language english
+# poetry run transcripy --audio-to-voices
+# poetry run transcripy --transcribe
 ```
 
 ---
@@ -98,9 +97,11 @@ poetry run transcripy --transcribe
 
 | Flag | Default | Description |
 |---|---|---|
+| `--process` | off | Run full pipeline: transcribe → diarise → output transcripts |
+| `--download-models` | off | Download all required models before first use |
 | `--data-path <path>` | `./data` | Root data directory |
 | `--model <name>` | varies per step | Whisper model: `tiny` `base` `small` `medium` `large` |
-| `--language <lang>` | auto-detect | Force language for `--audio-to-text` |
+| `--language <lang>` | auto-detect | Force language for `--audio-to-text` and `--process` |
 | `--verbose` | off | Print debug output |
 
 Run `poetry run transcripy --help` for the full list.

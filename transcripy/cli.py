@@ -81,6 +81,8 @@ def main():
                         help="Extract all voices from audio (--audio-extract-voice)")
     parser.add_argument("--download-models", default=False, action='store_true',
                         help="Download all required models (Whisper, Pyannote, Demucs, NLTK)")
+    parser.add_argument("--process", default=False, action='store_true',
+                        help="Run full pipeline: --audio-to-text, --audio-to-voices, --transcribe")
 
     args = parser.parse_args()
     data_path = args.data_path
@@ -90,6 +92,17 @@ def main():
     if args.download_models:
         whisper_model = args.model if args.model else "medium"
         download_models(whisper_model=whisper_model)
+        return
+
+    if args.process:
+        from .audio2text import MultiTranscriber
+        from .audio2voices import MultiDetector
+        from .text2splits import MultiVoiceSplitter
+        whisper_model = args.model if args.model else "medium"
+        MultiTranscriber(data_path, verbose=verbose, model=whisper_model,
+                         forceLanguage=args.language, english_only=args.language == "english").run()
+        MultiDetector(data_path, verbose=verbose).run()
+        MultiVoiceSplitter(data_path, verbose=verbose, transcribe=True).run()
         return
 
     if args.audio_extract_voice:
