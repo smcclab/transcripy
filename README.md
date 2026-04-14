@@ -81,7 +81,7 @@ Run each step in order. All commands use `poetry run transcripy` (or activate th
 ```shell
 # Optional: extract voice track from audio with background noise/music
 # Skip this if your audio is already clean speech
-poetry run transcripy --audio-extract-voice
+poetry run transcripy --audio-extract-voice # this is probably not needed for interview audio in our usecases.
 
 # Run the full pipeline: transcribe, diarise, and produce transcripts in one step
 poetry run transcripy --process --model medium --language english
