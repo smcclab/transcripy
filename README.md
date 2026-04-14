@@ -61,6 +61,18 @@ data/
 
 ---
 
+## Download models
+
+After HuggingFace setup, download all required models in one step:
+
+```shell
+poetry run transcripy --download-models
+```
+
+This downloads Whisper (`medium` by default), the Pyannote speaker diarization pipeline, the Demucs `htdemucs` voice separation model, and the NLTK `punkt_tab` tokenizer data. Pass `--model <name>` to fetch a different Whisper model size.
+
+---
+
 ## Quick start
 
 Run each step in order. All commands use `poetry run transcripy` (or activate the virtualenv with `poetry shell` first).
