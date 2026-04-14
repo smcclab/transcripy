@@ -6,7 +6,7 @@ authors = [{name = "Charles Martin"}]
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "openai-whisper",
+    "openai-whisper @ git+https://github.com/openai/whisper.git",
     "pyannote.audio",
     "spleeter",
     "tensorflow>=2.20,<2.21",
@@ -27,9 +27,6 @@ transcripy = "transcripy.cli:main"
 
 [tool.poetry]
 packages = [{include = "transcripy"}]
-
-[tool.poetry.dependencies]
-openai-whisper = {git = "https://github.com/openai/whisper.git"}
 
 [build-system]
 requires = ["poetry-core"]
