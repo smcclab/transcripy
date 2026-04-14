@@ -36,7 +36,8 @@ Pyannote downloads its speaker diarization models from HuggingFace and requires 
    - [pyannote/speaker-diarization-3.1](https://huggingface.co/pyannote/speaker-diarization-3.1)
    - [pyannote/segmentation-3.0](https://huggingface.co/pyannote/segmentation-3.0)
    - [pyannote/speaker-diarization-community-1](https://huggingface.co/pyannote/speaker-diarization-community-1)
-3. Log in via the CLI:
+3. install the CLI tool: <https://huggingface.co/docs/huggingface_hub/en/guides/cli>
+4. Log in via the CLI:
 
 ```shell
 poetry run hf auth login
